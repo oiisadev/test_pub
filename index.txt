@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OIISA Onboarding Page</title>
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+  <style>
+    body { font-family: Arial, sans-serif; }
+    .swiper-container { width: 100%; height: 100vh; }
+    .swiper-slide { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+    .loading-icon { margin: 20px 0; border: 4px solid #f3f3f3; border-radius: 50%; border-top: 4px solid #3498db; width: 40px; height: 40px; animation: spin 2s linear infinite; }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+      <!-- 첫 번째 화면: 생리컵 설명 -->
+      <div class="swiper-slide">
+        <h1>생리컵이란 무엇인가요?</h1>
+        <p>생리컵은 편리하고 친환경적인 생리 용품입니다.</p>
+      </div>
+      <!-- 두 번째 화면: 고객 후기 -->
+      <div class="swiper-slide">
+        <h1>사용 전후 변화</h1>
+        <p>"처음엔 걱정했지만 지금은 너무 만족해요!"</p>
+      </div>
+      <!-- 세 번째 화면: 설문조사 -->
+      <div class="swiper-slide">
+        <h1>생리컵에서 가장 중요하게 생각하는 요소는?</h1>
+        <button onclick="nextSlide()">편리함</button>
+        <button onclick="nextSlide()">친환경성</button>
+        <button onclick="nextSlide()">가격</button>
+      </div>
+      <!-- 로딩 화면 -->
+      <div class="swiper-slide" id="loading-screen">
+        <div class="loading-icon"></div>
+        <p>고객님에게 딱 맞는 제품을 추천해드리기 위해 분석 중입니다...</p>
+      </div>
+      <!-- 네 번째 화면: 맞춤형 제품 추천 -->
+      <div class="swiper-slide" id="product-recommendation-screen">
+        <h1>고객님께 추천드리는 제품은?</h1>
+        <p>OIISA 제품 A</p>
+        <button>지금 쇼핑하기</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script>
+    const swiper = new Swiper('.swiper-container', {
+      allowTouchMove: true,
+      noSwipingClass: 'swiper-no-swiping'
+    });
+
+    function nextSlide() {
+      // 질문에 답하면 로딩 화면으로 이동
+      swiper.slideNext();
+      setTimeout(() => {
+        document.getElementById('loading-screen').style.display = 'block';
+        setTimeout(() => {
+          swiper.slideNext();
+        }, 3000);  // 3초 후 제품 추천 화면으로 이동
+      }, 500);  // 0.5초 대기 후 로딩 화면 이동
+    }
+  </script>
+</body>
+</html>
